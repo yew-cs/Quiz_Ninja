@@ -17,6 +17,7 @@ const view = {
         target.innerHTML = content;
     },
     start: document.getElementById('start'),
+    timer: document.querySelector('#timer strong'),
 
     show(element) {
         element.style.display = 'block';
@@ -52,6 +53,8 @@ const game = {
         start(quiz) {
             this.score = 0; // score iniatilizer
             this.questions = quiz;
+            this.secondsRemaining = 20;
+            this.timer = setInterval(this.countdown, 1000);
             view.setup();
             this.ask();
         },
@@ -84,6 +87,15 @@ const game = {
         gameOver() {
             view.render(view.info, `Game over! Your score is ${this.score} point${this.score !== 1 ? 's' : ''}`);
             view.teardown();
+            clearInterval(this.timer);
+        },
+        countdown() {
+            game.secondsRemaining--;
+            view.render(view.timer, game.secondsRemaining);
+            if (game.secondsRemaining < 0) {
+                game.gameOver();
+            }
+
         }
     }
     // game.start(quiz);
