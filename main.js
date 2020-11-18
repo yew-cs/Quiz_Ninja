@@ -51,6 +51,7 @@ const view = {
 
 const game = {
         start(quiz) {
+            console.log('start() invoked');
             this.score = 0; // score iniatilizer
             this.questions = quiz;
             this.secondsRemaining = 20;
@@ -60,6 +61,7 @@ const game = {
         },
 
         ask(name) {
+            console.log('ask() invoked');
             if (this.questions.length > 0) {
                 this.question = this.questions.pop();
                 const question = `What is ${this.question.name}'s real name?`;
@@ -70,6 +72,7 @@ const game = {
         },
 
         check(event) {
+            console.log('check(event) invoked');
             event.preventDefault();
             const response = view.response.answer.value;
             const answer = this.question.realName;
@@ -85,6 +88,7 @@ const game = {
             this.ask();
         },
         gameOver() {
+            console.log('gameOver() invoked');
             view.render(view.info, `Game over! Your score is ${this.score} point${this.score !== 1 ? 's' : ''}`);
             view.teardown();
             clearInterval(this.timer);
